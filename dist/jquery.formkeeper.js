@@ -22,7 +22,16 @@
 			backupData: $.fn.formKeeper.backupData,
 			restoreData: $.fn.formKeeper.restoreData,
 			clearData: $.fn.formKeeper.clearData
-		}, defaults, options) ;
+		}, defaults, options);
+		// $.data not retrieve HTML5 data-* https://api.jquery.com/jquery.data/
+		this.formId = $(this.element).data(this.options.formId);
+
+		if ("undefined" === typeof this.formId) {
+			!!window.console ? window.console.error("Need formId!") : null;
+
+			return false;
+		}
+		this.namespace = pluginName + "." + this.formId;
 
 		this._defaults = defaults;
 		this._name = pluginName;
@@ -42,37 +51,37 @@
 			}
 
 			if (this.options.backupAtLeave) {
-				$(window).on("beforeunload." + pluginName, function () {
+				$(window).on("beforeunload." + this.namespace, function () {
 					that.backup();
 				});
 			}
 
 			if (this.options.clearOnSubmit) {
-				this.element.on("submit." + pluginName, function () {
+				this.element.on("submit." + this.namespace, function () {
 					that.clear();
 				});
 			}
 		},
 		destroy: function () {
 			if (this.options.backupAtLeave) {
-				$(window).off("beforeunload." + pluginName);
+				$(window).off("beforeunload." + this.namespace);
 			}
 
 			if (this.options.clearOnSubmit) {
-				this.element.off("submit." + pluginName);
+				this.element.off("submit." + this.namespace);
 			}
 		},
 
 		backup: function () {
-			this.options.backupData(this.options.backupForm(this.element));
+			this.options.backupData(this.formId, this.options.backupForm(this.element));
 		},
 
 		restore: function () {
-			this.options.restoreForm(this.element, this.options.restoreData());
+			this.options.restoreForm(this.element, this.options.restoreData(this.formId));
 		},
 
 		clear: function () {
-			this.options.clearData();
+			this.options.clearData(this.formId);
 		}
 	};
 
@@ -167,23 +176,24 @@
 	// localStorage support
 	$.fn[pluginName].supportLocalStorage = "object" === typeof window.localStorage;
 
-	$.fn[pluginName].backupData = function (data) {
+	$.fn[pluginName].backupData = function (formId, data) {
 		if (!$.fn[pluginName].supportLocalStorage) {
 			return;
 		}
 
-		window.localStorage.setItem(pluginName, JSON.stringify(data));
+		window.localStorage.setItem(pluginName + "." + formId, JSON.stringify(data));
 	};
 
-	$.fn[pluginName].restoreData = function () {
-		return JSON.parse(window.localStorage.getItem(pluginName));
+	$.fn[pluginName].restoreData = function (formId) {
+		return JSON.parse(window.localStorage.getItem(pluginName + "." + formId));
 	};
 
-	$.fn[pluginName].clearData = function () {
-		window.localStorage.removeItem(pluginName);
+	$.fn[pluginName].clearData = function (formId) {
+		window.localStorage.removeItem(pluginName + "." + formId);
 	};
 
 })({
+	formId: "formid",
 	restoreAtInit: true,
 	backupAtLeave: true,
 	clearOnSubmit: false
