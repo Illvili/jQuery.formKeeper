@@ -18,13 +18,15 @@
 3. 调用函数
 
 	```JavaScript
-	$('#form').formKeeper([options]);
+	$('#form').formKeeper();
 	```
 
 ## 插件选项
 
 ```JavaScript
 defaultOptions = {
+	restoreAtInit: true,
+	backupAtLeave: true,
 	clearOnSubmit: false,
 
 	backupForm: $.fn.formKeeper.backupForm,
@@ -38,6 +40,8 @@ defaultOptions = {
 
 参数 | 类型 | 说明
 -----|------|-----
+restoreAtInit | `boolean` | 初始化插件时自动恢复数据，默认值：`true`
+backupAtLeave | `boolean` | 离开页面时自动备份数据，默认值：`true`
 clearOnSubmit | `boolean` | 在提交表单后自动清数据，默认值：`false`
 backupForm | `function` | 提取表单数据
 restoreForm | `function` | 还原表单数据
@@ -45,11 +49,38 @@ backupData | `function` | 备份数据
 restoreData | `function` | 还原数据
 clearData | `function` | 清除数据
 
+## 方法
+
+* destroy
+	卸载插件，并清除事件绑定
+	```Javascript
+	$('#form').formKeeper('destroy');
+	```
+
+* backup
+	备份表单数据
+	```Javascript
+	$('#form').formKeeper('backup');
+	```
+
+* restore
+	还原表单数据
+	```Javascript
+	$('#form').formKeeper('restore');
+	```
+
+* clear
+	清除表单数据
+	```Javascript
+	$('#form').formKeeper('clear');
+	```
+
+
 ## 提取/还原表单数据
 
 插件默认将在：
-* 离开本页时提取数据
-* 初始化插件时还原表单数据
+* 如果设定`restoreAtInit`：离开页面时提取表单数据
+* 如果设定`backupAtLeave`：初始化插件时还原表单数据
 
 如果需要保存自定义数据，可以传递给`options`
 
@@ -100,3 +131,7 @@ clearData | `function` | 清除数据
 		// clear data
 	}
 	```
+
+## 其它
+
+整个项目基于[jquery-boilerplate](https://github.com/jquery-boilerplate/jquery-boilerplate)
