@@ -24,7 +24,8 @@
 ## 同页面多个表单
 
 默认使用当前页面URL的`pathname`转换出表单ID
-但可通过制定`data-formid`或`options`中的`formId`来指定表单ID
+
+但可通过指定`data-formid`或`options`中的`formId`来指定表单ID
 
 `/demo/demo.html`将转换为`_demo_demo.html`
 
