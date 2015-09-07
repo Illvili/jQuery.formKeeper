@@ -4,7 +4,7 @@
   "description": "Using localStorage backup and restore form data",
   "main": "readme.md",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt travis --verbose"
   },
   "keywords": [
     "form",
@@ -13,6 +13,13 @@
     "jquery",
     "plugin"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Illvili/jQuery.formKeeper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Illvili/jQuery.formKeeper/issues"
+  },
   "author": "Illvili",
   "license": "NoLicense",
   "devDependencies": {
