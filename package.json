@@ -1,0 +1,21 @@
+{
+  "name": "formkeeper",
+  "version": "1.0.0",
+  "description": "Using localStorage backup and restore form data",
+  "main": "readme.md",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "keywords": [
+    "form",
+    "data",
+    "backup",
+    "jquery",
+    "plugin"
+  ],
+  "author": "Illvili",
+  "license": "NoLicense",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
