@@ -15,25 +15,23 @@
 	<script src="dist/jquery.formkeeper.min.js"></script>
 	```
 
-3. 将需要保存的表单增加标记
-
-	```html
-	<form data-formId="formId" ...>
-	```
-	其中`formId`应在本站中唯一，相同`formId`将使用同一份数据
-
-4. 调用函数
+3. 调用函数
 
 	```JavaScript
 	$('#form').formKeeper();
 	```
 
+## 同页面多个表单
+
+默认使用当前页面URL的`pathname`转换出表单ID
+但可通过制定`data-formid`或`options`中的`formId`来指定表单ID
+
+`/demo/demo.html`将转换为`_demo_demo.html`
 
 ## 插件选项
 
 ```JavaScript
 defaultOptions = {
-	formId: 'formid',
 	restoreAtInit: true,
 	backupAtLeave: true,
 	clearOnSubmit: false,
@@ -49,7 +47,7 @@ defaultOptions = {
 
 参数 | 类型 | 说明
 -----|------|-----
-formId | `string` | 表单ID所使用`data-*`属性名，默认值：`formid`
+formId | `string` | 表单ID，默认值：`undefined` 使用URL来自动生成
 restoreAtInit | `boolean` | 初始化插件时自动恢复数据，默认值：`true`
 backupAtLeave | `boolean` | 离开页面时自动备份数据，默认值：`true`
 clearOnSubmit | `boolean` | 在提交表单后自动清数据，默认值：`false`

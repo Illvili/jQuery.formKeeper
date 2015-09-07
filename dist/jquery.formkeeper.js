@@ -23,13 +23,14 @@
 			restoreData: $.fn.formKeeper.restoreData,
 			clearData: $.fn.formKeeper.clearData
 		}, defaults, options);
-		// $.data not retrieve HTML5 data-* https://api.jquery.com/jquery.data/
-		this.formId = $(this.element).data(this.options.formId);
 
-		if ("undefined" === typeof this.formId) {
-			!!window.console ? window.console.error("Need formId!") : null;
-
-			return false;
+		if ("string" === typeof this.options.formId) {
+			this.formId = this.options.formId;
+		} else if ("string" === typeof $(this.element).data("formid")) {
+			// $.data not retrieve HTML5 data-* https://api.jquery.com/jquery.data/
+			this.formId =  $(this.element).data("formid");
+		} else {
+			this.formId = location.pathname.replace(/\//g, "_");
 		}
 		this.namespace = pluginName + "." + this.formId;
 
@@ -77,7 +78,10 @@
 		},
 
 		restore: function () {
-			this.options.restoreForm(this.element, this.options.restoreData(this.formId));
+			var data = this.options.restoreData(this.formId);
+			if (!!data) {
+				this.options.restoreForm(this.element, data);
+			}
 		},
 
 		clear: function () {
@@ -193,7 +197,6 @@
 	};
 
 })({
-	formId: "formid",
 	restoreAtInit: true,
 	backupAtLeave: true,
 	clearOnSubmit: false
