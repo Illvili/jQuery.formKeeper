@@ -1,4 +1,4 @@
-# FormKeeper [![Build Status](https://travis-ci.org/Illvili/jQuery.formKeeper.svg?branch=master)](https://travis-ci.org/Illvili/jQuery.formKeeper)
+# FormKeeper [![Build Status](https://travis-ci.org/Illvili/jQuery.formKeeper.svg?branch=master)](https://travis-ci.org/Illvili/jQuery.formKeeper) [![Code Climate](https://codeclimate.com/github/Illvili/jQuery.formKeeper/badges/gpa.svg)](https://codeclimate.com/github/Illvili/jQuery.formKeeper)
 随时随地保存表单数据
 
 ## 使用方法
