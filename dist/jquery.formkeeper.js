@@ -1,5 +1,5 @@
 /*
- *  formkeeper - v1.0.0
+ *  formkeeper - v1.1.0
  *  Using localStorage backup and restore form data
  *  
  *
@@ -119,11 +119,7 @@
 
 	// form reader and saver
 	$.fn[pluginName].backupForm = function (form) {
-		var data = {
-			input: {},
-			checkbox: {},
-			radio: {}
-		};
+		var data = {};
 
 		$(form).find(":input").each(function () {
 			var input = $(this), name = input.prop("name");
@@ -136,18 +132,18 @@
 					return;
 				}
 
-				data.radio[name] = input.val();
+				data[name] = input.val();
 			} else if (input.is(":checkbox")) {
 				if (!input.prop("checked")) {
 					return;
 				}
 
-				if (!data.checkbox[name]) {
-					data.checkbox[name] = [];
+				if (!data[name]) {
+					data[name] = [];
 				}
-				data.checkbox[name].push(input.val());
+				data[name].push(input.val());
 			} else {
-				data.input[name] = input.val();
+				data[name] = input.val();
 			}
 		});
 
@@ -157,22 +153,20 @@
 	$.fn[pluginName].restoreForm = function (form, data) {
 		$(form).find(":input").each(function () {
 			var input = $(this), name = input.prop("name");
-			if (!name) {
+			if (!name || !data[name]) {
 				return;
 			}
 
 			if (input.is(":radio")) {
-				if (!!data.radio[name] && data.radio[name] === input.val()) {
+				if (data[name] === input.val()) {
 					input.prop("checked", true);
 				}
 			} else if (input.is(":checkbox")) {
-				if (!!data.checkbox[name] && -1 !== data.checkbox[name].indexOf(input.val())) {
+				if (-1 !== data[name].indexOf(input.val())) {
 					input.prop("checked", true);
 				}
 			} else {
-				if (!!data.input[name]) {
-					input.val(data.input[name]);
-				}
+				input.val(data[name]);
 			}
 		});
 	};

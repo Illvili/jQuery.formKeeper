@@ -1,6 +1,6 @@
 {
   "name": "formkeeper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Using localStorage backup and restore form data",
   "main": "readme.md",
   "scripts": {

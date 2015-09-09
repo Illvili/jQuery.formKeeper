@@ -144,3 +144,13 @@ clearData | `function` | 清除数据
 ## 其它
 
 整个项目基于[jquery-boilerplate](https://github.com/jquery-boilerplate/jquery-boilerplate)
+
+## 更新
+
+* v 1.1.0
+
+	* 更改`$.fn.formKeeper.backupForm`和`$.fn.formKeeper.restoreForm`保存数据格式 **无法兼容前一版本数据**
+
+* v 1.0.0
+
+	初始版本
