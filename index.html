@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>jQuery.formKeeper by Illvili</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">jQuery.formKeeper</h1>
+      <h2 class="project-tagline">用于保存客户表单防止刷新的jQuery插件</h2>
+      <a href="https://github.com/Illvili/jQuery.formKeeper" class="btn">View on GitHub</a>
+      <a href="https://github.com/Illvili/jQuery.formKeeper/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Illvili/jQuery.formKeeper/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="formkeeper--" class="anchor" href="#formkeeper--" aria-hidden="true"><span class="octicon octicon-link"></span></a>FormKeeper <a href="https://travis-ci.org/Illvili/jQuery.formKeeper"><img src="https://travis-ci.org/Illvili/jQuery.formKeeper.svg?branch=master" alt="Build Status"></a> <a href="https://codeclimate.com/github/Illvili/jQuery.formKeeper"><img src="https://codeclimate.com/github/Illvili/jQuery.formKeeper/badges/gpa.svg" alt="Code Climate"></a>
+</h1>
+
+<p>随时随地保存表单数据</p>
+
+<h2>
+<a id="使用方法" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用方法</h2>
+
+<ol>
+<li>
+<p>引用 <code>jQuery</code></p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://code.jquery.com/jquery-2.1.4.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+</li>
+<li>
+<p>引用 <code>FormKeeper</code></p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>dist/jquery.formkeeper.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+</li>
+<li>
+<p>调用函数</p>
+
+<div class="highlight highlight-JavaScript"><pre>$(<span class="pl-s"><span class="pl-pds">'</span>#form<span class="pl-pds">'</span></span>).formKeeper();</pre></div>
+</li>
+</ol>
+
+<h2>
+<a id="同页面多个表单" class="anchor" href="#%E5%90%8C%E9%A1%B5%E9%9D%A2%E5%A4%9A%E4%B8%AA%E8%A1%A8%E5%8D%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>同页面多个表单</h2>
+
+<p>默认使用当前页面URL的<code>pathname</code>转换出表单ID</p>
+
+<p>但可通过指定<code>data-formid</code>或<code>options</code>中的<code>formId</code>来指定表单ID</p>
+
+<p><code>/demo/demo.html</code>将转换为<code>_demo_demo.html</code></p>
+
+<h2>
+<a id="插件选项" class="anchor" href="#%E6%8F%92%E4%BB%B6%E9%80%89%E9%A1%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>插件选项</h2>
+
+<div class="highlight highlight-JavaScript"><pre>defaultOptions <span class="pl-k">=</span> {
+    restoreAtInit<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    backupAtLeave<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    clearOnSubmit<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+
+    backupForm<span class="pl-k">:</span> $.fn.formKeeper.backupForm,
+    restoreForm<span class="pl-k">:</span> $.fn.formKeeper.restoreForm,
+
+    backupData<span class="pl-k">:</span> $.fn.formKeeper.backupData,
+    restoreData<span class="pl-k">:</span> $.fn.formKeeper.restoreData,
+    clearData<span class="pl-k">:</span> $.fn.formKeeper.clearData
+}</pre></div>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>formId</td>
+<td><code>string</code></td>
+<td>表单ID，默认值：<code>undefined</code> 使用URL来自动生成</td>
+</tr>
+<tr>
+<td>restoreAtInit</td>
+<td><code>boolean</code></td>
+<td>初始化插件时自动恢复数据，默认值：<code>true</code>
+</td>
+</tr>
+<tr>
+<td>backupAtLeave</td>
+<td><code>boolean</code></td>
+<td>离开页面时自动备份数据，默认值：<code>true</code>
+</td>
+</tr>
+<tr>
+<td>clearOnSubmit</td>
+<td><code>boolean</code></td>
+<td>在提交表单后自动清数据，默认值：<code>false</code>
+</td>
+</tr>
+<tr>
+<td>backupForm</td>
+<td><code>function</code></td>
+<td>提取表单数据</td>
+</tr>
+<tr>
+<td>restoreForm</td>
+<td><code>function</code></td>
+<td>还原表单数据</td>
+</tr>
+<tr>
+<td>backupData</td>
+<td><code>function</code></td>
+<td>备份数据</td>
+</tr>
+<tr>
+<td>restoreData</td>
+<td><code>function</code></td>
+<td>还原数据</td>
+</tr>
+<tr>
+<td>clearData</td>
+<td><code>function</code></td>
+<td>清除数据</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="方法" class="anchor" href="#%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>方法</h2>
+
+<ul>
+<li>
+<p>destroy
+卸载插件，并清除事件绑定</p>
+
+<div class="highlight highlight-Javascript"><pre>$(<span class="pl-s"><span class="pl-pds">'</span>#form<span class="pl-pds">'</span></span>).formKeeper(<span class="pl-s"><span class="pl-pds">'</span>destroy<span class="pl-pds">'</span></span>);</pre></div>
+</li>
+<li>
+<p>backup
+备份表单数据</p>
+
+<div class="highlight highlight-Javascript"><pre>$(<span class="pl-s"><span class="pl-pds">'</span>#form<span class="pl-pds">'</span></span>).formKeeper(<span class="pl-s"><span class="pl-pds">'</span>backup<span class="pl-pds">'</span></span>);</pre></div>
+</li>
+<li>
+<p>restore
+还原表单数据</p>
+
+<div class="highlight highlight-Javascript"><pre>$(<span class="pl-s"><span class="pl-pds">'</span>#form<span class="pl-pds">'</span></span>).formKeeper(<span class="pl-s"><span class="pl-pds">'</span>restore<span class="pl-pds">'</span></span>);</pre></div>
+</li>
+<li>
+<p>clear
+清除表单数据</p>
+
+<div class="highlight highlight-Javascript"><pre>$(<span class="pl-s"><span class="pl-pds">'</span>#form<span class="pl-pds">'</span></span>).formKeeper(<span class="pl-s"><span class="pl-pds">'</span>clear<span class="pl-pds">'</span></span>);</pre></div>
+</li>
+</ul>
+
+<h2>
+<a id="提取还原表单数据" class="anchor" href="#%E6%8F%90%E5%8F%96%E8%BF%98%E5%8E%9F%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE" aria-hidden="true"><span class="octicon octicon-link"></span></a>提取/还原表单数据</h2>
+
+<p>插件默认将在：</p>
+
+<ul>
+<li>如果设定<code>restoreAtInit</code>：离开页面时提取表单数据</li>
+<li>如果设定<code>backupAtLeave</code>：初始化插件时还原表单数据</li>
+</ul>
+
+<p>如果需要保存自定义数据，可以传递给<code>options</code></p>
+
+<ul>
+<li>
+<p>backupForm</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">backupForm</span>(<span class="pl-smi">form</span>) {
+    <span class="pl-c">// deal with form and fetch data</span>
+    <span class="pl-k">return</span> data;
+}</pre></div>
+</li>
+<li>
+<p>restoreForm</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">restoreForm</span>(<span class="pl-smi">form</span>, <span class="pl-smi">data</span>) {
+    <span class="pl-c">// restore form with data</span>
+}</pre></div>
+</li>
+</ul>
+
+<h2>
+<a id="备份还原清除数据" class="anchor" href="#%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F%E6%B8%85%E9%99%A4%E6%95%B0%E6%8D%AE" aria-hidden="true"><span class="octicon octicon-link"></span></a>备份/还原/清除数据</h2>
+
+<p>插件默认使用<code>localStorage</code>来保存数据</p>
+
+<p>如果需要自定义保存方式，可以传递给<code>options</code></p>
+
+<ul>
+<li>
+<p>backupData</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">backupData</span>(<span class="pl-smi">formId</span>, <span class="pl-smi">data</span>) {
+    <span class="pl-c">// save data to some place</span>
+}</pre></div>
+</li>
+<li>
+<p>restoreData</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">restoreData</span>(<span class="pl-smi">formId</span>) {
+    <span class="pl-c">// get data</span>
+    <span class="pl-k">return</span> data;
+}</pre></div>
+</li>
+<li>
+<p>clearData</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">clearData</span>(<span class="pl-smi">formId</span>) {
+    <span class="pl-c">// clear data</span>
+}</pre></div>
+</li>
+</ul>
+
+<h2>
+<a id="测试" class="anchor" href="#%E6%B5%8B%E8%AF%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>测试</h2>
+
+<pre><code>npm install
+grunt travis
+</code></pre>
+
+<p>将会运行函数测试</p>
+
+<h2>
+<a id="其它" class="anchor" href="#%E5%85%B6%E5%AE%83" aria-hidden="true"><span class="octicon octicon-link"></span></a>其它</h2>
+
+<p>整个项目基于<a href="https://github.com/jquery-boilerplate/jquery-boilerplate">jquery-boilerplate</a></p>
+
+<h2>
+<a id="更新" class="anchor" href="#%E6%9B%B4%E6%96%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>更新</h2>
+
+<ul>
+<li>
+<p>v 1.1.0</p>
+
+<ul>
+<li>更改<code>$.fn.formKeeper.backupForm</code>和<code>$.fn.formKeeper.restoreForm</code>保存数据格式 <strong>无法兼容前一版本数据</strong>
+</li>
+</ul>
+</li>
+<li>
+<p>v 1.0.0</p>
+
+<p>初始版本</p>
+</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Illvili/jQuery.formKeeper">jQuery.formKeeper</a> is maintained by <a href="https://github.com/Illvili">Illvili</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
