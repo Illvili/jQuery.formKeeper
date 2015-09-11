@@ -141,6 +141,15 @@ clearData | `function` | 清除数据
 	}
 	```
 
+## 测试
+
+```
+npm install
+grunt travis
+```
+
+将会运行函数测试
+
 ## 其它
 
 整个项目基于[jquery-boilerplate](https://github.com/jquery-boilerplate/jquery-boilerplate)
