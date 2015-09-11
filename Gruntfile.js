@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 
 		// Lint definitions
 		jshint: {
-			files: ["src/jquery.formkeeper.js"],
+			files: ["src/jquery.formkeeper.js", "src/spec/*.js"],
 			options: {
 				jshintrc: ".jshintrc"
 			}
@@ -53,6 +53,23 @@ module.exports = function(grunt) {
 		watch: {
 		    files: ['src/*'],
 		    tasks: ['default']
+		},
+
+		// karma
+		karma: {
+			unit: {
+				options: {
+					frameworks: ['jasmine'],
+					browsers: ["PhantomJS"],
+					singleRun: true,
+					files: [
+						"node_modules/jquery/dist/jquery.min.js",
+						"src/*.js",
+						"src/spec/*.js"
+					],
+					reporters: ['progress']
+				}
+			}
 		}
 
 	});
@@ -62,9 +79,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-coffee");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-karma");
 
 	grunt.registerTask("build", ["concat", "uglify"]);
 	grunt.registerTask("default", ["jshint", "build"]);
-	grunt.registerTask("travis", ["default"]);
+	grunt.registerTask("travis", ["jshint", "karma"]);
 
 };
