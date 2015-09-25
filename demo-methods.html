@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FormKeeper Demo: Methods</title>
+</head>
+<body>
+
+	<form id="form">
+		<label>姓名：<input type="text" name="name"></label><br>
+		性别：<label><input type="radio" name="gender" value="男"> 男</label><label><input type="radio" name="gender" value="女"> 女</label><br>
+		订阅类型：<label><input type="checkbox" name="subs[]" value="新闻">新闻</label><label><input type="checkbox" name="subs[]" value="娱乐">娱乐</label><label><input type="checkbox" name="subs[]" value="购物">购物</label><br>
+		<label>时间：<input type="date" name="date"></label><br>
+		<label>方式：<select name="type" multiple><option>E-mail</option><option value="sms">短信</option><option>站内信</option></select></label><br>
+		<label>频率：<select name="fren"><option value="daily">每天</option><option value="weekly">每周</option><option value="monthly">每月</option></select></label><br>
+		<label>简介：<textarea name="note" rows="4"></textarea></label><br>
+
+		<br><button type="submit">提交</button>
+	</form>
+
+	<br />
+
+	<button type="button" id="backup">备份表单</button>
+	<button type="button" id="restore">还原表单</button>
+	<button type="button" id="clear">清除备份数据</button>
+
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="jquery.formkeeper.js"></script>
+	<script>$(function () {
+		$('#form').formKeeper({
+			restoreAtInit: false,
+			backupAtLeave: false
+		});
+
+		$('#backup').on('click', function () {
+			$('#form').formKeeper('backup');
+		});
+
+		$('#restore').on('click', function () {
+			$('#form').formKeeper('restore');
+		});
+
+		$('#clear').on('click', function () {
+			$('#form').formKeeper('clear');
+		});
+	})</script>
+</body>
+</html>
